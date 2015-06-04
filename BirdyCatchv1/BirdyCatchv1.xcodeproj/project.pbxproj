@@ -20,11 +20,12 @@
 		3886B2C81B1E3F69009C6BFA /* birdy_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B2C11B1E3F69009C6BFA /* birdy_green.png */; };
 		3886B3081B1F2BDB009C6BFA /* green_grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3071B1F2BDB009C6BFA /* green_grass.jpg */; };
 		3886B30A1B1F2D9D009C6BFA /* cloudyBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3091B1F2D9D009C6BFA /* cloudyBG.jpg */; };
-		3886B3161B208820009C6BFA /* hunter.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3151B208820009C6BFA /* hunter.png */; };
 		3886B3181B2088B2009C6BFA /* webbing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3171B2088B2009C6BFA /* webbing.png */; };
 		3886B31F1B208A90009C6BFA /* bulletSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3886B31E1B208A90009C6BFA /* bulletSound.mp3 */; };
 		3886B3211B208C48009C6BFA /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3201B208C48009C6BFA /* backgroundMusic.mp3 */; };
 		3886B3231B208D3E009C6BFA /* contact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3221B208D3E009C6BFA /* contact.mp3 */; };
+		3886B3251B2096B4009C6BFA /* BackgroundBirdyCatchv1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */; };
+		3886B3271B209B6B009C6BFA /* hunter.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3261B209B6B009C6BFA /* hunter.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,11 +60,12 @@
 		3886B2C11B1E3F69009C6BFA /* birdy_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = birdy_green.png; sourceTree = "<group>"; };
 		3886B3071B1F2BDB009C6BFA /* green_grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green_grass.jpg; sourceTree = "<group>"; };
 		3886B3091B1F2D9D009C6BFA /* cloudyBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cloudyBG.jpg; sourceTree = "<group>"; };
-		3886B3151B208820009C6BFA /* hunter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter.png; sourceTree = "<group>"; };
 		3886B3171B2088B2009C6BFA /* webbing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webbing.png; sourceTree = "<group>"; };
 		3886B31E1B208A90009C6BFA /* bulletSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bulletSound.mp3; sourceTree = "<group>"; };
 		3886B3201B208C48009C6BFA /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		3886B3221B208D3E009C6BFA /* contact.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = contact.mp3; sourceTree = "<group>"; };
+		3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundBirdyCatchv1.png; sourceTree = "<group>"; };
+		3886B3261B209B6B009C6BFA /* hunter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,9 +156,10 @@
 		3886B2BF1B1E3F69009C6BFA /* BirdyCatchResources */ = {
 			isa = PBXGroup;
 			children = (
+				3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */,
 				3886B3091B1F2D9D009C6BFA /* cloudyBG.jpg */,
 				3886B3171B2088B2009C6BFA /* webbing.png */,
-				3886B3151B208820009C6BFA /* hunter.png */,
+				3886B3261B209B6B009C6BFA /* hunter.png */,
 				3886B3071B1F2BDB009C6BFA /* green_grass.jpg */,
 				3886B2C11B1E3F69009C6BFA /* birdy_green.png */,
 			);
@@ -255,12 +258,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3886B3231B208D3E009C6BFA /* contact.mp3 in Resources */,
+				3886B3251B2096B4009C6BFA /* BackgroundBirdyCatchv1.png in Resources */,
 				3886B30A1B1F2D9D009C6BFA /* cloudyBG.jpg in Resources */,
 				3811432E1B1CCFCE00EAFFA3 /* Main.storyboard in Resources */,
 				381143331B1CCFCE00EAFFA3 /* LaunchScreen.xib in Resources */,
-				3886B3161B208820009C6BFA /* hunter.png in Resources */,
 				3886B3181B2088B2009C6BFA /* webbing.png in Resources */,
 				3886B3211B208C48009C6BFA /* backgroundMusic.mp3 in Resources */,
+				3886B3271B209B6B009C6BFA /* hunter.png in Resources */,
 				3886B2C81B1E3F69009C6BFA /* birdy_green.png in Resources */,
 				381143301B1CCFCE00EAFFA3 /* Images.xcassets in Resources */,
 				3886B31F1B208A90009C6BFA /* bulletSound.mp3 in Resources */,

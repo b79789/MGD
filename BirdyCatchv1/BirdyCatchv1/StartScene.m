@@ -16,6 +16,7 @@
 
 @implementation StartScene
 
+// create content when view is initialized
 - (void)didMoveToView: (SKView *) view
 {
     if (!self.contentCreated)
@@ -25,6 +26,7 @@
     }
 }
 
+// create the content
 - (void)createSceneContents
 {
     self.backgroundColor = [SKColor grayColor];
@@ -32,16 +34,27 @@
     [self addChild: [self newHelloNode]];
 }
 
+
+// Start Scene that puts the start labelon scene
 - (SKLabelNode *)newHelloNode
 {
-    SKLabelNode *helloNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    helloNode.name = @"helloNode";
-    helloNode.text = @"Start";
-    helloNode.fontSize = 42;
-    helloNode.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
-    return helloNode;
+    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"BackgroundBirdyCatchv1.png"];
+    background.size = self.frame.size;
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    background.physicsBody.dynamic=NO;
+    [self addChild:background];
+
+    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Futura-CondensedExtraBold"];
+    label.name = @"helloNode";
+    label.text = @"Start Game";
+    label.fontSize = 42;
+    label.fontColor=[SKColor blackColor];
+    label.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
+    return label;
 }
 
+
+//Method that puts the action to the scene
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event
 {
     SKNode *helloNode = [self childNodeWithName:@"helloNode"];

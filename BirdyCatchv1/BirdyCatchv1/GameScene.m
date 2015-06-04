@@ -11,10 +11,15 @@
 
 
 @interface GameScene ()<SKPhysicsContactDelegate>
+{
+    SKLabelNode* _scoreLabelNode;
+    NSInteger _score;
+}
 @property BOOL contentCreated;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+
 @end
 
 static const uint32_t projectileCategory     =  0x1 << 0;
@@ -44,12 +49,12 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 @implementation GameScene
 {
+    
     SKSpriteNode *birdy;    //1
-    SKSpriteNode *birdy2;    //2
-    SKSpriteNode *birdy3;    //3
     SKSpriteNode *hunter;    //4
 }
 
+// create the content
 - (void)didMoveToView:(SKView *)view
 {
     if (!self.contentCreated)
@@ -62,6 +67,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     }
 }
 
+// Method that puts the scenes children on scene and sets the background music
 - (void)createSceneContents
 {
     self.backgroundColor = [SKColor cyanColor];
@@ -91,33 +97,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [self addChild:self->hunter];
     self.physicsWorld.gravity = CGVectorMake(0,0);
     self.physicsWorld.contactDelegate = self;
-    
-  /*
-    birdy = [self newBirdy];
-    birdy.name=@"birdy1";
-    birdy.position = CGPointMake(CGRectGetMidX(self.frame),
-                                 CGRectGetMidY(self.frame)-150);
-    birdy.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:birdy.size.height];
-    birdy.physicsBody.dynamic = YES;
-    birdy.physicsBody.allowsRotation = NO;
-    
-    [self addChild:birdy];
-    birdy2 = [self newBirdy];
-    birdy2.position = CGPointMake(CGRectGetMidX(self.frame),
-                                 CGRectGetMidY(self.frame)-50);
-    birdy2.color = [SKColor redColor];
-    birdy2.colorBlendFactor = 0.5;
-    [self addChild:birdy2];
-    birdy3 = [self newBirdy];
-    birdy3.position = CGPointMake(CGRectGetMidX(self.frame),
-                                  CGRectGetMidY(self.frame)-250);
-    birdy3.color = [SKColor blueColor];
-    birdy3.colorBlendFactor = 0.5;
-    [self addChild:birdy3];
-    
-   */
+    _score = 0;
+    _scoreLabelNode = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Wide"];
+    _scoreLabelNode.position = CGPointMake( CGRectGetMidX( self.frame ), 3 * self.frame.size.height / 4 );
+    _scoreLabelNode.zPosition = 100;
+    _scoreLabelNode.text = [NSString stringWithFormat:@"%ld", (long)_score];
+    [self addChild:_scoreLabelNode];
 }
 
+// Method creates the bird
 - (SKSpriteNode *)newBirdy
 {
     SKSpriteNode *bird = [SKSpriteNode spriteNodeWithImageNamed:@"birdy_green.png"];
@@ -128,6 +116,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     return bird;
 }
 
+// Method that puts the the birds on scene
 - (void)addBirdy {
     
     // Create sprite
@@ -163,6 +152,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     
 }
 
+// Method that handles touch events
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event
 {
     [self runAction:[SKAction playSoundFileNamed:@"bulletSound.mp3" waitForCompletion:NO]];
@@ -205,32 +195,20 @@ static inline CGPoint rwNormalize(CGPoint a) {
     SKAction * actionMoveDone = [SKAction removeFromParent];
     
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    /*
-    SKNode *helloNode = [self childNodeWithName:@"birdy1"];
-    if (helloNode != nil)
-    {
-        SKAction *moveNodeRight = [SKAction moveByX:1000 y:0.0 duration:15.0];
-        helloNode.name = nil;
-        SKAction *moveUp = [SKAction moveByX: 0 y: 100.0 duration: 0.5];
-        SKAction *zoom = [SKAction scaleTo: 2.0 duration: 0.25];
-        SKAction *pause = [SKAction waitForDuration: 0.5];
-        SKAction *remove = [SKAction removeFromParent];
-        SKAction *moveSequence = [SKAction sequence:@[moveUp, zoom, pause, moveNodeRight]];
-        [helloNode runAction: moveSequence completion:^{
-            NSLog(@"done");
-        }];
-    }
-     
-     */
+
 }
 
+// Method that creates the projectile and adds score
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)bird {
-    NSLog(@"Hit");
+    
+    _score = _score+10;
+    _scoreLabelNode.text = [NSString stringWithFormat:@"%ld", (long)_score];
     [self runAction:[SKAction playSoundFileNamed:@"contact.mp3" waitForCompletion:NO]];
     [projectile removeFromParent];
     [bird removeFromParent];
 }
 
+// Method that acts on contact of nodes
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
     // 1
@@ -255,6 +233,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     }
 }
 
+// Method that updates scene
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
     self.lastSpawnTimeInterval += timeSinceLast;
@@ -264,7 +243,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     }
 }
 
-
+// Method that updates time
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
     // If we drop below 60fps, we still want everything to move the same distance.
