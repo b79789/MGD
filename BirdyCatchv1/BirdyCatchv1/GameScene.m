@@ -7,6 +7,7 @@
 //
 
 #import "GameScene.h"
+#import "GameData.h"
 @import AVFoundation;
 
 
@@ -14,6 +15,9 @@
 {
     SKLabelNode* _scoreLabelNode;
     NSInteger _score;
+    SKNode *_hudNode;
+    SKLabelNode* _score1;
+    SKLabelNode* _highScore;
 }
 @property BOOL contentCreated;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
@@ -72,19 +76,22 @@ static inline CGPoint rwNormalize(CGPoint a) {
 {
     self.backgroundColor = [SKColor cyanColor];
     self.scaleMode = SKSceneScaleModeAspectFit;
+    
+    /*
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"backgroundMusic" withExtension:@"mp3"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
-
+     */
     
     SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"cloudyBG.jpg"];
     background.size = self.frame.size;
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     background.physicsBody.dynamic=NO;
     [self addChild:background];
+    
     SKSpriteNode* ground = [SKSpriteNode spriteNodeWithImageNamed:@"green_grass.jpg"];
     SKNode* dummy = [SKNode node];
     dummy.position = CGPointMake(0, ground.size.height);
@@ -97,12 +104,24 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [self addChild:self->hunter];
     self.physicsWorld.gravity = CGVectorMake(0,0);
     self.physicsWorld.contactDelegate = self;
-    _score = 0;
-    _scoreLabelNode = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Wide"];
-    _scoreLabelNode.position = CGPointMake( CGRectGetMidX( self.frame ), 3 * self.frame.size.height / 4 );
-    _scoreLabelNode.zPosition = 100;
-    _scoreLabelNode.text = [NSString stringWithFormat:@"%ld", (long)_score];
-    [self addChild:_scoreLabelNode];
+    [self setupHUD];
+    _highScore.text = [NSString stringWithFormat:@"High: %li pt", [GameData sharedGameData].highScore];
+    _score1.text = @"0 pt";
+}
+
+-(void)setupHUD
+{
+    _score1 = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _score1.fontSize = 24;
+    _score1.position = CGPointMake(50, 740);
+    _score1.fontColor = [SKColor greenColor];
+    [self addChild:_score1];
+    
+    _highScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _highScore.fontSize = 24;
+    _highScore.position = CGPointMake(200, 740);
+    _highScore.fontColor = [SKColor redColor];
+    [self addChild:_highScore];
 }
 
 // Method creates the bird
@@ -127,18 +146,18 @@ static inline CGPoint rwNormalize(CGPoint a) {
     birdy.physicsBody.categoryBitMask = monsterCategory; // 3
     birdy.physicsBody.contactTestBitMask = projectileCategory; // 4
     birdy.physicsBody.collisionBitMask = 0; // 5
-    // Determine where to spawn the monster along the Y axis
+    // Determine where to spawn the birds along the Y axis
     int minY = birdy.size.height / 2;
     int maxY = self.frame.size.height - birdy.size.height / 2;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY) + minY;
     
-    // Create the monster slightly off-screen along the right edge,
+    // Create the birds slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
     birdy.position = CGPointMake(self.frame.size.width + birdy.size.width/2, actualY);
     [self addChild:birdy];
     
-    // Determine speed of the monster
+    // Determine speed of the birds
     int minDuration = 2.0;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
@@ -201,8 +220,12 @@ static inline CGPoint rwNormalize(CGPoint a) {
 // Method that creates the projectile and adds score
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)bird {
     
-    _score = _score+10;
-    _scoreLabelNode.text = [NSString stringWithFormat:@"%ld", (long)_score];
+    [GameData sharedGameData].score += 10;
+    _score1.text = [NSString stringWithFormat:@"%li pt", [GameData sharedGameData].score];
+    [GameData sharedGameData].highScore = MAX([GameData sharedGameData].score,
+                                              [GameData sharedGameData].highScore);
+    NSString *myString = [NSString stringWithFormat:@"%ld", [GameData sharedGameData].highScore ];
+    _highScore.text=myString;
     [self runAction:[SKAction playSoundFileNamed:@"contact.mp3" waitForCompletion:NO]];
     [projectile removeFromParent];
     [bird removeFromParent];
@@ -237,10 +260,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
     self.lastSpawnTimeInterval += timeSinceLast;
-    if (self.lastSpawnTimeInterval > 1) {
+    if (self.lastSpawnTimeInterval > .5) {
         self.lastSpawnTimeInterval = 0;
         [self addBirdy];
     }
+    
 }
 
 // Method that updates time
@@ -253,6 +277,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
         timeSinceLast = 1.0 / 60.0;
         self.lastUpdateTimeInterval = currentTime;
     }
+    
+    
     
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
     
