@@ -27,6 +27,9 @@
 		381933561B25C5C100E50EAD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3819334B1B25C5C100E50EAD /* Icon-Small@2x.png */; };
 		381933571B25C5C100E50EAD /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3819334C1B25C5C100E50EAD /* Icon-Small@3x.png */; };
 		3819335A1B25CAA300E50EAD /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 381933591B25CAA300E50EAD /* GameData.m */; };
+		3819335C1B2750DB00E50EAD /* SpriteAnimations.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3819335B1B2750DB00E50EAD /* SpriteAnimations.atlas */; };
+		3819335F1B2770BA00E50EAD /* EndScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3819335E1B2770BA00E50EAD /* EndScene.m */; };
+		381933631B30837D00E50EAD /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 381933621B30837D00E50EAD /* Pause.png */; };
 		3886B2B81B1E3B85009C6BFA /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3886B2B71B1E3B85009C6BFA /* StartScene.m */; };
 		3886B2BE1B1E3E5B009C6BFA /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3886B2BD1B1E3E5B009C6BFA /* GameScene.m */; };
 		3886B2C81B1E3F69009C6BFA /* birdy_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B2C11B1E3F69009C6BFA /* birdy_green.png */; };
@@ -38,6 +41,9 @@
 		3886B3231B208D3E009C6BFA /* contact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3221B208D3E009C6BFA /* contact.mp3 */; };
 		3886B3251B2096B4009C6BFA /* BackgroundBirdyCatchv1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */; };
 		3886B3271B209B6B009C6BFA /* hunter.png in Resources */ = {isa = PBXBuildFile; fileRef = 3886B3261B209B6B009C6BFA /* hunter.png */; };
+		38D536891B3AE462004DE613 /* SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D536881B3AE462004DE613 /* SplashScreen.m */; };
+		38D5368C1B3AE47D004DE613 /* CreditsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D5368B1B3AE47D004DE613 /* CreditsScene.m */; };
+		38D5368E1B3AED1B004DE613 /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 38D5368D1B3AED1B004DE613 /* Splash.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +84,10 @@
 		3819334C1B25C5C100E50EAD /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
 		381933581B25CAA300E50EAD /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		381933591B25CAA300E50EAD /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
+		3819335B1B2750DB00E50EAD /* SpriteAnimations.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpriteAnimations.atlas; sourceTree = "<group>"; };
+		3819335D1B2770BA00E50EAD /* EndScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndScene.h; sourceTree = "<group>"; };
+		3819335E1B2770BA00E50EAD /* EndScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndScene.m; sourceTree = "<group>"; };
+		381933621B30837D00E50EAD /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		3886B2B61B1E3B85009C6BFA /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
 		3886B2B71B1E3B85009C6BFA /* StartScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScene.m; sourceTree = "<group>"; };
 		3886B2BC1B1E3E5B009C6BFA /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -91,6 +101,11 @@
 		3886B3221B208D3E009C6BFA /* contact.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = contact.mp3; sourceTree = "<group>"; };
 		3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundBirdyCatchv1.png; sourceTree = "<group>"; };
 		3886B3261B209B6B009C6BFA /* hunter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter.png; sourceTree = "<group>"; };
+		38D536871B3AE462004DE613 /* SplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreen.h; sourceTree = "<group>"; };
+		38D536881B3AE462004DE613 /* SplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreen.m; sourceTree = "<group>"; };
+		38D5368A1B3AE47D004DE613 /* CreditsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsScene.h; sourceTree = "<group>"; };
+		38D5368B1B3AE47D004DE613 /* CreditsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsScene.m; sourceTree = "<group>"; };
+		38D5368D1B3AED1B004DE613 /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Splash.png; path = ../Splash.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +130,7 @@
 		381143161B1CCFCE00EAFFA3 = {
 			isa = PBXGroup;
 			children = (
+				3819335B1B2750DB00E50EAD /* SpriteAnimations.atlas */,
 				3886B3191B2089F1009C6BFA /* Sounds */,
 				3886B2BF1B1E3F69009C6BFA /* BirdyCatchResources */,
 				381143481B1CCFE900EAFFA3 /* SpriteKit.framework */,
@@ -150,6 +166,12 @@
 				3886B2BD1B1E3E5B009C6BFA /* GameScene.m */,
 				381933581B25CAA300E50EAD /* GameData.h */,
 				381933591B25CAA300E50EAD /* GameData.m */,
+				3819335D1B2770BA00E50EAD /* EndScene.h */,
+				3819335E1B2770BA00E50EAD /* EndScene.m */,
+				38D536871B3AE462004DE613 /* SplashScreen.h */,
+				38D536881B3AE462004DE613 /* SplashScreen.m */,
+				38D5368A1B3AE47D004DE613 /* CreditsScene.h */,
+				38D5368B1B3AE47D004DE613 /* CreditsScene.m */,
 			);
 			path = BirdyCatchv1;
 			sourceTree = "<group>";
@@ -201,6 +223,8 @@
 		3886B2BF1B1E3F69009C6BFA /* BirdyCatchResources */ = {
 			isa = PBXGroup;
 			children = (
+				38D5368D1B3AED1B004DE613 /* Splash.png */,
+				381933621B30837D00E50EAD /* Pause.png */,
 				3886B3241B2096B4009C6BFA /* BackgroundBirdyCatchv1.png */,
 				3886B3091B1F2D9D009C6BFA /* cloudyBG.jpg */,
 				3886B3171B2088B2009C6BFA /* webbing.png */,
@@ -318,10 +342,13 @@
 				3886B3271B209B6B009C6BFA /* hunter.png in Resources */,
 				3819334F1B25C5C100E50EAD /* Icon-40@2x.png in Resources */,
 				3886B2C81B1E3F69009C6BFA /* birdy_green.png in Resources */,
+				38D5368E1B3AED1B004DE613 /* Splash.png in Resources */,
 				3819334E1B25C5C100E50EAD /* Icon-40.png in Resources */,
 				381143301B1CCFCE00EAFFA3 /* Images.xcassets in Resources */,
 				381933531B25C5C100E50EAD /* Icon-76.png in Resources */,
+				381933631B30837D00E50EAD /* Pause.png in Resources */,
 				3886B31F1B208A90009C6BFA /* bulletSound.mp3 in Resources */,
+				3819335C1B2750DB00E50EAD /* SpriteAnimations.atlas in Resources */,
 				381933571B25C5C100E50EAD /* Icon-Small@3x.png in Resources */,
 				381933541B25C5C100E50EAD /* Icon-76@2x.png in Resources */,
 				3886B3081B1F2BDB009C6BFA /* green_grass.jpg in Resources */,
@@ -347,8 +374,11 @@
 				381143281B1CCFCE00EAFFA3 /* AppDelegate.m in Sources */,
 				3886B2BE1B1E3E5B009C6BFA /* GameScene.m in Sources */,
 				3819335A1B25CAA300E50EAD /* GameData.m in Sources */,
+				38D536891B3AE462004DE613 /* SplashScreen.m in Sources */,
+				3819335F1B2770BA00E50EAD /* EndScene.m in Sources */,
 				381143251B1CCFCE00EAFFA3 /* main.m in Sources */,
 				3886B2B81B1E3B85009C6BFA /* StartScene.m in Sources */,
+				38D5368C1B3AE47D004DE613 /* CreditsScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +515,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d5d1fd23-29d1-453c-907e-555f7f5c73de";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -497,6 +528,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d5d1fd23-29d1-453c-907e-555f7f5c73de";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

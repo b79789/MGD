@@ -1,0 +1,3 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="smoke.png" x="0" y="0" width="1239" height="114"/>
+</TextureAtlas>

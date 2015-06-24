@@ -5,9 +5,10 @@
 //  Created by Brian Stacks on 6/2/15.
 //  Copyright (c) 2015 Brian Stacks. All rights reserved.
 //
-
+#import "EndScene.h"
 #import "GameScene.h"
 #import "GameData.h"
+#import "CreditsScene.h"
 @import AVFoundation;
 
 
@@ -18,8 +19,12 @@
     SKNode *_hudNode;
     SKLabelNode* _score1;
     SKLabelNode* _highScore;
+    SKSpriteNode *_smoke;
+    NSArray *smokeTextures;
+    SKView *spriteView;
 }
 @property BOOL contentCreated;
+
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
@@ -52,6 +57,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 }
 
 @implementation GameScene
+
 {
     
     SKSpriteNode *birdy;    //1
@@ -76,7 +82,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
 {
     self.backgroundColor = [SKColor cyanColor];
     self.scaleMode = SKSceneScaleModeAspectFit;
-    
+    spriteView = (SKView *) self.view;
+  
     /*
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"backgroundMusic" withExtension:@"mp3"];
@@ -107,21 +114,49 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [self setupHUD];
     _highScore.text = [NSString stringWithFormat:@"High: %li pt", [GameData sharedGameData].highScore];
     _score1.text = @"0 pt";
+    
+    [self addChild: [self pauseButtonNode]];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"SpriteAnimations"];
+    SKTexture *f1 = [atlas textureNamed:@"smoke1.png"];
+    SKTexture *f2 = [atlas textureNamed:@"smoke2.png"];
+    SKTexture *f3 = [atlas textureNamed:@"smoke3.png"];
+    SKTexture *f4 = [atlas textureNamed:@"smoke4.png"];
+    SKTexture *f5 = [atlas textureNamed:@"smoke5.png"];
+    SKTexture *f6 = [atlas textureNamed:@"smoke6.png"];
+    SKTexture *f7 = [atlas textureNamed:@"smoke7.png"];
+    SKTexture *f8 = [atlas textureNamed:@"smoke8.png"];
+    SKTexture *f9 = [atlas textureNamed:@"smoke9.png"];
+    SKTexture *f10 = [atlas textureNamed:@"smoke10.png"];
+    SKTexture *f11 = [atlas textureNamed:@"number-1-icon.png"];
+    smokeTextures = @[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f11,f11];
 }
 
+- (SKSpriteNode *)pauseButtonNode
+{
+    SKSpriteNode *pauseNode = [SKSpriteNode spriteNodeWithImageNamed:@"Pause.png"];
+    pauseNode.position = CGPointMake(self.frame.size.width-40, self.frame.size.height-40);
+    pauseNode.name = @"pauseButtonNode";//how the node is identified later
+    pauseNode.zPosition = 1.0;
+    return pauseNode;
+}
+
+-(IBAction)goPauseButton {
+    if(!spriteView.paused){
+        spriteView.paused = YES;
+    }else{
+        spriteView.paused = NO;
+    }
+}
+
+// Method that puts the scenes hud on scene
 -(void)setupHUD
 {
     _score1 = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _score1.fontSize = 24;
-    _score1.position = CGPointMake(50, 740);
+    _score1.position = CGPointMake(50, self.size.height-50);
     _score1.fontColor = [SKColor greenColor];
     [self addChild:_score1];
-    
-    _highScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
-    _highScore.fontSize = 24;
-    _highScore.position = CGPointMake(200, 740);
-    _highScore.fontColor = [SKColor redColor];
-    [self addChild:_highScore];
+
 }
 
 // Method creates the bird
@@ -146,8 +181,10 @@ static inline CGPoint rwNormalize(CGPoint a) {
     birdy.physicsBody.categoryBitMask = monsterCategory; // 3
     birdy.physicsBody.contactTestBitMask = projectileCategory; // 4
     birdy.physicsBody.collisionBitMask = 0; // 5
+    
+    //Linear Interolation starts
     // Determine where to spawn the birds along the Y axis
-    int minY = birdy.size.height / 2;
+    int minY = 200;
     int maxY = self.frame.size.height - birdy.size.height / 2;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY) + minY;
@@ -174,11 +211,16 @@ static inline CGPoint rwNormalize(CGPoint a) {
 // Method that handles touch events
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event
 {
-    [self runAction:[SKAction playSoundFileNamed:@"bulletSound.mp3" waitForCompletion:NO]];
+    
     // 1 - Choose one of the touches to work with
     UITouch * touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-    
+    SKNode *node = [self nodeAtPoint:location];
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"pauseButtonNode"]) {
+        //do whatever...
+        [self goPauseButton];
+    }else{
     // 2 - Set up initial location of projectile
     SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"webbing.png"];
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
@@ -208,18 +250,26 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint realDest = rwAdd(shootAmount, projectile.position);
     
     // 9 - Create the actions
-    float velocity = 480.0/1.0;
+    float velocity = 500.0/1.0;
     float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-
+    [self runAction:[SKAction playSoundFileNamed:@"bulletSound.mp3" waitForCompletion:NO]];
+    }
 }
 
 // Method that creates the projectile and adds score
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)bird {
     
+    
+    SKTexture *temp = smokeTextures[0];
+    _smoke = [SKSpriteNode spriteNodeWithTexture:temp];
+    _smoke.position = bird.position;
+    [self addChild:_smoke];
+    [self createSmoke];
+
     [GameData sharedGameData].score += 10;
     _score1.text = [NSString stringWithFormat:@"%li pt", [GameData sharedGameData].score];
     [GameData sharedGameData].highScore = MAX([GameData sharedGameData].score,
@@ -229,6 +279,25 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [self runAction:[SKAction playSoundFileNamed:@"contact.mp3" waitForCompletion:NO]];
     [projectile removeFromParent];
     [bird removeFromParent];
+    if ([GameData sharedGameData].score >= 100) {
+        NSLog(@"You won");
+        [self goToEndScene];
+        
+    }
+}
+
+-(void)createSmoke
+{
+    SKAction *action=[SKAction animateWithTextures:smokeTextures
+                                      timePerFrame:0.1f
+                                            resize:YES
+                                           restore:NO];
+    
+    [_smoke runAction:action completion:^{
+        [_smoke removeFromParent];
+    }];
+                      
+    return;
 }
 
 // Method that acts on contact of nodes
@@ -253,6 +322,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
         (secondBody.categoryBitMask & monsterCategory) != 0)
     {
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
+    }else{
+        
     }
 }
 
@@ -265,6 +336,12 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self addBirdy];
     }
     
+}
+
+-(void)goToEndScene{
+    SKScene * gameOverScene = [[CreditsScene alloc] initWithSize:self.size];
+    SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+    [self.view presentScene:gameOverScene transition:doors];
 }
 
 // Method that updates time

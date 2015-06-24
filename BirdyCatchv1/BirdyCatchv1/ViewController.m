@@ -9,10 +9,10 @@
 #import "ViewController.h"
 #import <SpriteKit/SpriteKit.h>
 #import "StartScene.h"
+#import "SplashScreen.h"
 
 
 @interface ViewController ()
-
 @end
 
 @implementation ViewController
@@ -38,9 +38,10 @@
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
         
-        // Create and configure the  start scene.
-        SKScene * scene = [StartScene sceneWithSize:skView.bounds.size];
+        SKScene * scene = [SplashScreen sceneWithSize:skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
+        
+        
         
         // Present the scene.
         [skView presentScene:scene];
