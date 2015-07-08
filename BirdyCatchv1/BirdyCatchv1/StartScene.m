@@ -43,6 +43,8 @@
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     background.physicsBody.dynamic=NO;
     [self addChild:background];
+    
+
 
     SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Futura-CondensedExtraBold"];
     label.name = @"helloNode";
@@ -50,6 +52,13 @@
     label.fontSize = 42;
     label.fontColor=[SKColor blackColor];
     label.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
+    SKLabelNode *b = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    b.fontSize = 30;
+    b.fontColor = [SKColor blackColor];
+    b.text=@"Touch the spot you want to shoot and catch the birds";
+    b.position=CGPointMake(label.position.x, label.position.y + 100);
+    [self addChild:b];
+    
     return label;
 }
 
